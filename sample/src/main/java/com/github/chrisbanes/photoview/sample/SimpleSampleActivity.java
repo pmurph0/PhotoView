@@ -26,6 +26,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.OvershootInterpolator;
+import android.view.animation.Transformation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -125,6 +128,9 @@ public class SimpleSampleActivity extends AppCompatActivity {
                         mCurrentDisplayMatrix = new Matrix();
                         mPhotoView.getDisplayMatrix(mCurrentDisplayMatrix);
                         return true;
+                    case R.id.menu_rotate:
+                        mPhotoView.startAnimation(new RotationAnimation(mPhotoView));
+                        return true;
                 }
                 return false;
             }
@@ -139,6 +145,7 @@ public class SimpleSampleActivity extends AppCompatActivity {
         mPhotoView.setOnMatrixChangeListener(new MatrixChangeListener());
         mPhotoView.setOnPhotoTapListener(new PhotoTapListener());
         mPhotoView.setOnSingleFlingListener(new SingleFlingListener());
+        mPhotoView.setMinimumScale(0.5f);
     }
 
     private class PhotoTapListener implements OnPhotoTapListener {
@@ -176,5 +183,35 @@ public class SimpleSampleActivity extends AppCompatActivity {
             Log.d("PhotoView", String.format(FLING_LOG_STRING, velocityX, velocityY));
             return true;
         }
+    }
+
+    private static class RotationAnimation extends Animation {
+
+        private final PhotoView view;
+        private final float startRotation;
+        private final float targetRotation;
+
+        public RotationAnimation(final PhotoView view) {
+            this.view = view;
+
+            startRotation = view.getRotation();
+            targetRotation = startRotation + 90;
+            setInterpolator(new OvershootInterpolator(1f));
+            setDuration(300);
+        }
+
+        @Override
+        protected void applyTransformation(float interpolatedTime, Transformation t) {
+            int newRotation = (int) (startRotation+(targetRotation - startRotation) *
+                    interpolatedTime);
+
+            view.setRotationTo(newRotation);
+        }
+
+        @Override
+        public boolean willChangeBounds() {
+            return true;
+        }
+
     }
 }

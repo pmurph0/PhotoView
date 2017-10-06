@@ -302,14 +302,21 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         checkAndDisplayMatrix();
     }
 
+    private float mRotation = mBaseRotation;
     public void setRotationTo(float degrees) {
         mSuppMatrix.setRotate(degrees % 360);
         checkAndDisplayMatrix();
+        mRotation = degrees;
     }
 
     public void setRotationBy(float degrees) {
         mSuppMatrix.postRotate(degrees % 360);
         checkAndDisplayMatrix();
+        mRotation += degrees;
+    }
+
+    public float getRotation() {
+        return mRotation;
     }
 
     public float getMinimumScale() {
