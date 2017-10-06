@@ -129,7 +129,7 @@ public class SimpleSampleActivity extends AppCompatActivity {
                         mPhotoView.getDisplayMatrix(mCurrentDisplayMatrix);
                         return true;
                     case R.id.menu_rotate:
-                        mPhotoView.startAnimation(new RotationAnimation(mPhotoView));
+                        mPhotoView.startAnimation(new RotationAnimation(mPhotoView, 90f));
                         return true;
                 }
                 return false;
@@ -191,11 +191,11 @@ public class SimpleSampleActivity extends AppCompatActivity {
         private final float startRotation;
         private final float targetRotation;
 
-        public RotationAnimation(final PhotoView view) {
+        public RotationAnimation(final PhotoView view, float rotateBy) {
             this.view = view;
 
             startRotation = view.getImageRotation();
-            targetRotation = startRotation + 90;
+            targetRotation = startRotation + rotateBy;
             setInterpolator(new OvershootInterpolator(1f));
             setDuration(300);
         }
@@ -205,7 +205,7 @@ public class SimpleSampleActivity extends AppCompatActivity {
             int newRotation = (int) (startRotation+(targetRotation - startRotation) *
                     interpolatedTime);
 
-            view.setRotationTo(newRotation);
+            view.setRotationBy(newRotation - view.getImageRotation());
         }
 
         @Override
