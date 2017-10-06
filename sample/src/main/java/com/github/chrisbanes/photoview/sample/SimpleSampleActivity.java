@@ -197,7 +197,7 @@ public class SimpleSampleActivity extends AppCompatActivity {
             startRotation = view.getImageRotation();
             targetRotation = startRotation + rotateBy;
             setInterpolator(new OvershootInterpolator(1f));
-            setDuration(300);
+            setDuration(500);
         }
 
         @Override

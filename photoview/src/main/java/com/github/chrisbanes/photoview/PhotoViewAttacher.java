@@ -131,10 +131,12 @@ public class PhotoViewAttacher implements View.OnTouchListener,
 
         @Override
         public void onFling(float startX, float startY, float velocityX, float velocityY) {
-            mCurrentFlingRunnable = new FlingRunnable(mImageView.getContext());
-            mCurrentFlingRunnable.fling(getImageViewWidth(mImageView),
-                    getImageViewHeight(mImageView), (int) velocityX, (int) velocityY);
-            mImageView.post(mCurrentFlingRunnable);
+            if (flingEnabled) {
+                mCurrentFlingRunnable = new FlingRunnable(mImageView.getContext());
+                mCurrentFlingRunnable.fling(getImageViewWidth(mImageView),
+                        getImageViewHeight(mImageView), (int) velocityX, (int) velocityY);
+                mImageView.post(mCurrentFlingRunnable);
+            }
         }
 
         @Override
@@ -148,6 +150,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
             }
         }
     };
+    private boolean flingEnabled;
 
     public PhotoViewAttacher(ImageView imageView) {
         mImageView = imageView;
@@ -757,6 +760,10 @@ public class PhotoViewAttacher implements View.OnTouchListener,
             mCurrentFlingRunnable.cancelFling();
             mCurrentFlingRunnable = null;
         }
+    }
+
+    public void setFlingEnabled(boolean flingEnabled) {
+        this.flingEnabled = flingEnabled;
     }
 
     private class AnimatedZoomRunnable implements Runnable {

@@ -267,4 +267,8 @@ public class PhotoView extends ImageView {
     public void setOnSingleFlingListener(OnSingleFlingListener onSingleFlingListener) {
         attacher.setOnSingleFlingListener(onSingleFlingListener);
     }
+
+    public void setFlingEnabled(boolean enabled) {
+        attacher.setFlingEnabled(enabled);
+    }
 }
