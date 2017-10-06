@@ -271,4 +271,8 @@ public class PhotoView extends ImageView {
     public void setFlingEnabled(boolean enabled) {
         attacher.setFlingEnabled(enabled);
     }
+
+    public void setCanScaleAndDrag(boolean canScaleAndDrag) {
+        attacher.setCanScaleAndDrag(canScaleAndDrag);
+    }
 }

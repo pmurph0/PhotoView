@@ -91,11 +91,15 @@ public class PhotoViewAttacher implements View.OnTouchListener,
     private boolean mZoomEnabled = true;
     private ScaleType mScaleType = ScaleType.FIT_CENTER;
 
+    private boolean canScaleAndDrag = true;
+
     private OnGestureListener onGestureListener = new OnGestureListener() {
         @Override
         public void onDrag(float dx, float dy) {
-            if (mScaleDragDetector.isScaling()) {
-                return; // Do not drag if we are already scaling
+            if (!canScaleAndDrag) {
+                if (mScaleDragDetector.isScaling()) {
+                    return; // Do not drag if we are already scaling
+                }
             }
 
             if (mOnViewDragListener != null) {
@@ -296,6 +300,10 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         checkAndDisplayMatrix();
 
         return true;
+    }
+
+    public void setCanScaleAndDrag(boolean canScaleAndDrag) {
+        this.canScaleAndDrag = canScaleAndDrag;
     }
 
     public void setBaseRotation(final float degrees) {

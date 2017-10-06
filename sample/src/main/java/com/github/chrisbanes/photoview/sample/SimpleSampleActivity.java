@@ -145,7 +145,7 @@ public class SimpleSampleActivity extends AppCompatActivity {
         mPhotoView.setOnMatrixChangeListener(new MatrixChangeListener());
         mPhotoView.setOnPhotoTapListener(new PhotoTapListener());
         mPhotoView.setOnSingleFlingListener(new SingleFlingListener());
-        mPhotoView.setMinimumScale(0.5f);
+        mPhotoView.setMinimumScale(0.4f);
     }
 
     private class PhotoTapListener implements OnPhotoTapListener {
