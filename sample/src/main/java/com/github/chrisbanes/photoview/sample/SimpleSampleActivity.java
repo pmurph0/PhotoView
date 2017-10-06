@@ -194,7 +194,7 @@ public class SimpleSampleActivity extends AppCompatActivity {
         public RotationAnimation(final PhotoView view) {
             this.view = view;
 
-            startRotation = view.getRotation();
+            startRotation = view.getImageRotation();
             targetRotation = startRotation + 90;
             setInterpolator(new OvershootInterpolator(1f));
             setDuration(300);

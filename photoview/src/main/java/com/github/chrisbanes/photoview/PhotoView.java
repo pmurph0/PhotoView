@@ -139,8 +139,7 @@ public class PhotoView extends ImageView {
         return changed;
     }
 
-    @Override
-    public float getRotation() {
+    public float getImageRotation() {
         return attacher.getRotation();
     }
 
