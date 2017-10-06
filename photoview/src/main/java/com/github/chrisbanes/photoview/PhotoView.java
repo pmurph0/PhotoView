@@ -22,6 +22,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.widget.ImageView;
 
@@ -132,11 +133,16 @@ public class PhotoView extends ImageView {
 
     @Override
     protected boolean setFrame(int l, int t, int r, int b) {
+        log("setFrame");
         boolean changed = super.setFrame(l, t, r, b);
         if (changed) {
             attacher.update();
         }
         return changed;
+    }
+
+    private void log(String string) {
+        Log.d("PhotoView", string);
     }
 
     public float getImageRotation() {

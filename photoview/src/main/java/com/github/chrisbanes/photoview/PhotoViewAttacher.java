@@ -21,6 +21,7 @@ import android.graphics.Matrix.ScaleToFit;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.MotionEventCompat;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -584,6 +585,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
      * Resets the Matrix back to FIT_CENTER, and then displays its contents
      */
     private void resetMatrix() {
+        log("resetMatrix");
         mSuppMatrix.reset();
         setRotationBy(mBaseRotation);
         setImageViewMatrix(getDrawMatrix());
@@ -591,6 +593,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
     }
 
     private void setImageViewMatrix(Matrix matrix) {
+        log("setImageViewMatrix");
         mImageView.setImageMatrix(matrix);
 
         // Call MatrixChangedListener if needed
@@ -606,6 +609,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
      * Helper method that simply checks the Matrix, and then displays the result
      */
     private void checkAndDisplayMatrix() {
+        log("checkAndDisplayMatrix");
         if (checkMatrixBounds()) {
             setImageViewMatrix(getDrawMatrix());
         }
@@ -626,6 +630,10 @@ public class PhotoViewAttacher implements View.OnTouchListener,
             return mDisplayRect;
         }
         return null;
+    }
+
+    private void log(String string) {
+        Log.d("PhotoViewAttacher", string);
     }
 
     /**
@@ -752,6 +760,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
 
         // Finally actually translate the matrix
         mSuppMatrix.postTranslate(deltaX, deltaY);
+        log(String.format("Translating matrix, x by %s, y by %s", deltaX, deltaY));
         return true;
     }
 
