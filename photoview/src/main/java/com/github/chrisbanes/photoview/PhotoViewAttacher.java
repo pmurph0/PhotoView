@@ -144,6 +144,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
 
         @Override
         public void onScale(float scaleFactor, float focusX, float focusY) {
+            log(String.format("onScale, focusX = %s, foxusY = %s", focusX, focusY));
             if ((getScale() < mMaxScale || scaleFactor < 1f) && (getScale() > mMinScale || scaleFactor > 1f)) {
                 if (mScaleChangeListener != null) {
                     mScaleChangeListener.onScaleChange(scaleFactor, focusX, focusY);
@@ -639,7 +640,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         }
     }
 
-    private void log(String string) {
+    private static void log(String string) {
         Log.d("PhotoViewAttacher", string);
     }
 
