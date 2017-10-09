@@ -556,6 +556,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
     }
 
     private Matrix getDrawMatrix() {
+        log(String.format("GetDrawMatrix, mSuppMatrix is %s", mSuppMatrix.toString()));
         mDrawMatrix.set(mBaseMatrix);
         mDrawMatrix.postConcat(mSuppMatrix);
         return mDrawMatrix;
@@ -593,9 +594,12 @@ public class PhotoViewAttacher implements View.OnTouchListener,
     }
 
     private void setImageViewMatrix(Matrix matrix) {
-        log("setImageViewMatrix");
+        log(String.format("setImageViewMatrix %s", matrix.toString()));
         mImageView.setImageMatrix(matrix);
 
+//  }
+
+        //TODO does not affect anything
         // Call MatrixChangedListener if needed
         if (mMatrixChangeListener != null) {
             RectF displayRect = getDisplayRect(matrix);
@@ -613,7 +617,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
      * Helper method that simply checks the Matrix, and then displays the result
      */
     private void checkAndDisplayMatrix(boolean isDrag) {
-        log("checkAndDisplayMatrix");
+        log(String.format("checkAndDisplayMatrix %s", isDrag ? "isDrag" : ""));
         if (checkMatrixBounds(isDrag)) {
             setImageViewMatrix(getDrawMatrix());
         }
@@ -646,6 +650,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
      * @param drawable - Drawable being displayed
      */
     private void updateBaseMatrix(Drawable drawable) {
+        log("updateBaseMatrix");
         if (drawable == null) {
             return;
         }
@@ -763,12 +768,12 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         }
 
         // Finally actually translate the matrix
-        log(String.format("Translating matrix, x by %s, y by %s", deltaX, deltaY));
-        if (isDrag) {
-            mDrawMatrix.postTranslate(deltaX, deltaY);
-        } else {
+        log(String.format("Translating supp matrix; x by %s, y by %s", deltaX, deltaY));
+//        if (isDrag) {
+//            mDrawMatrix.postTranslate(deltaX, deltaY);
+//        } else {
             mSuppMatrix.postTranslate(deltaX, deltaY);
-        }
+//        }
         return true;
     }
 
