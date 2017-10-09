@@ -607,7 +607,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         mSuppMatrix.reset();
         setRotationBy(mBaseRotation);
         setImageViewMatrix(getDrawMatrix());
-        restrictToBounds(false);
+        restrictToBounds();
     }
 
     private void setImageViewMatrix(Matrix matrix) {
@@ -635,9 +635,11 @@ public class PhotoViewAttacher implements View.OnTouchListener,
      */
     private void checkAndDisplayMatrix(boolean isRotation) {
         log(String.format("checkAndDisplayMatrix %s", isRotation ? "isRotation" : ""));
-        if (restrictToBounds(isRotation)) {
+        if (isRotation && restrictToBounds()) {
             setImageViewMatrix(getDrawMatrix());
+            return;
         }
+        setImageViewMatrix(getDrawMatrix());
     }
 
     private static void log(String string) {
@@ -714,7 +716,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         resetMatrix();
     }
 
-    private boolean restrictToBounds(boolean isRotation) {
+    private boolean restrictToBounds() {
 
         final RectF rect = getDisplayRect(getDrawMatrix());
         if (rect == null) {
@@ -767,12 +769,9 @@ public class PhotoViewAttacher implements View.OnTouchListener,
             mScrollEdge = EDGE_NONE;
         }
 
-        // Finally actually translate the matrix
+        // Finally actually translate the matrix. This restricts the image matrix to the imageview bounds
         log(String.format("Translating supp matrix; x by %s, y by %s", deltaX, deltaY));
-
-        if (isRotation) {
-            mSuppMatrix.postTranslate(deltaX, deltaY);
-        }
+        mSuppMatrix.postTranslate(deltaX, deltaY);
         return true;
     }
 
