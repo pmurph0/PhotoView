@@ -122,11 +122,11 @@ public class SimpleSampleActivity extends AppCompatActivity {
                         if (mCurrentDisplayMatrix == null)
                             showToast("You need to capture display matrix first");
                         else
-                            mPhotoView.setDisplayMatrix(mCurrentDisplayMatrix);
+//                            mPhotoView.setDisplayMatrix(mCurrentDisplayMatrix);
                         return true;
                     case R.id.menu_matrix_capture:
                         mCurrentDisplayMatrix = new Matrix();
-                        mPhotoView.getDisplayMatrix(mCurrentDisplayMatrix);
+//                        mPhotoView.getDisplayMatrix(mCurrentDisplayMatrix);
                         return true;
                     case R.id.menu_rotate:
                         mPhotoView.startAnimation(new RotationAnimation(mPhotoView, 90f));

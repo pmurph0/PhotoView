@@ -18,7 +18,6 @@ package com.github.chrisbanes.photoview;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Matrix;
-import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.AttributeSet;
@@ -170,25 +169,25 @@ public class PhotoView extends ImageView {
         attacher.setZoomable(zoomable);
     }
 
-    public RectF getDisplayRect() {
-        return attacher.getDisplayRect();
-    }
+//    public RectF getDisplayRect() {
+//        return attacher.getDisplayRect();
+//    }
 
-    public void getDisplayMatrix(Matrix matrix) {
-        attacher.getDisplayMatrix(matrix);
-    }
+//    public void getDisplayMatrix(Matrix matrix) {
+//        attacher.getDisplayMatrix(matrix);
+//    }
 
-    public boolean setDisplayMatrix(Matrix finalRectangle) {
-        return attacher.setDisplayMatrix(finalRectangle);
-    }
+//    public boolean setDisplayMatrix(Matrix finalRectangle) {
+//        return attacher.setDisplayMatrix(finalRectangle);
+//    }
 
     public void getSuppMatrix(Matrix matrix) {
         attacher.getSuppMatrix(matrix);
     }
 
-    public boolean setSuppMatrix(Matrix matrix) {
-        return attacher.setDisplayMatrix(matrix);
-    }
+//    public boolean setSuppMatrix(Matrix matrix) {
+//        return attacher.setDisplayMatrix(matrix);
+//    }
 
     public float getMinimumScale() {
         return attacher.getMinimumScale();
