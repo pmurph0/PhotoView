@@ -768,11 +768,10 @@ public class PhotoViewAttacher implements View.OnTouchListener,
 
         // Finally actually translate the matrix
         log(String.format("Translating supp matrix; x by %s, y by %s", deltaX, deltaY));
-//        if (isDrag) {
-//            mDrawMatrix.postTranslate(deltaX, deltaY);
-//        } else {
-//            mSuppMatrix.postTranslate(deltaX, deltaY);
-//        }
+
+        if (isRotation) {
+            mSuppMatrix.postTranslate(deltaX, deltaY);
+        }
         return true;
     }
 
